@@ -1,0 +1,5 @@
+<?xml>
+
+<begin name="Title window">
+	<button id="btn0" label="Hello!"/>
+</begin>
