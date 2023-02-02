@@ -2,4 +2,5 @@
 
 <begin name="Title window">
 	<button id="btn0" label="Hello!"/>
+	<placeholder id="custom0"/>
 </begin>

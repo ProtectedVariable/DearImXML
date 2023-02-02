@@ -3,7 +3,7 @@
 
 namespace ImXML {
 	enum ImGuiEnum {
-		BEGIN, BUTTON
+		BEGIN, PLACEHOLDER, BUTTON
 	};
 }
 
