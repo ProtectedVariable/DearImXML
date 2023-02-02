@@ -6,6 +6,8 @@ namespace ImXML {
 		{ "begin", ImGuiEnum::BEGIN },
 		{ "button" , ImGuiEnum::BUTTON },
 		{ "placeholder", ImGuiEnum::PLACEHOLDER },
+		{ "text", ImGuiEnum::TEXT },
+		{ "sameline", ImGuiEnum::SAMELINE },
 	};
 
 }

@@ -1,6 +1,10 @@
 <?xml>
 
 <begin name="Title window">
-	<button id="btn0" label="Hello!"/>
+	<sameline>
+		<text label="Text"/>
+		<button id="btn0" label="Hello!"/>
+	</sameline>
+	<text label="new line"/>
 	<placeholder id="custom0"/>
 </begin>

@@ -9,8 +9,15 @@ namespace ImXML {
 	class XMLRenderer
 	{
 	private:
+		bool sameline = false;
+
 		void onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
 			handler.onNodeBegin(node);
+			
+			if(sameline) {
+				ImGui::SameLine();
+			}
+			
 			if(node.type == ImGuiEnum::BEGIN) {
 				ImGui::Begin(node.args["name"].c_str());
 			}
@@ -20,11 +27,23 @@ namespace ImXML {
 					handler.onEvent(node);
 				}
 			}
+
+			if(node.type == ImGuiEnum::TEXT) {
+				ImGui::Text("%s", node.args["label"].c_str());
+			}
+
+			if(node.type == ImGuiEnum::SAMELINE) {
+				sameline = true;
+			}
 		}
 
 		void onNodeEnd(XMLNode& node, XMLEventHandler& handler) {
 			if(node.type == ImGuiEnum::BEGIN) {
 				ImGui::End();
+			}
+			
+			if(node.type == ImGuiEnum::SAMELINE) {
+				sameline = false;
 			}
 			handler.onNodeEnd(node);
 		}
