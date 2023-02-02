@@ -15,6 +15,24 @@
 #include <XMLReader.h>
 #include <XMLTree.h>
 #include <XMLRenderer.h>
+#include <XMLEventHandler.h>
+
+class Handler : public ImXML::XMLEventHandler {
+    virtual void onNodeBegin(ImXML::XMLNode& node) override {
+
+    }
+    
+    virtual void onNodeEnd(ImXML::XMLNode& node) override {
+
+    }
+
+    virtual void onEvent(ImXML::XMLNode& node) override {
+        if(node.args["id"] == "btn0") {
+            node.args["label"] = "Clicked";
+        }
+    }
+
+};
 
 int main(int argc, char const *argv[])
 {
@@ -76,9 +94,10 @@ int main(int argc, char const *argv[])
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-	DearImXML::XMLReader reader = DearImXML::XMLReader();
-	DearImXML::XMLTree tree = reader.read("Assets/test.xml");
-    DearImXML::XMLRenderer renderer;
+	ImXML::XMLReader reader = ImXML::XMLReader();
+	ImXML::XMLTree tree = reader.read("Assets/test.xml");
+    ImXML::XMLRenderer renderer;
+    Handler handler;
 
 	while (!glfwWindowShouldClose(window))
     {
@@ -92,7 +111,7 @@ int main(int argc, char const *argv[])
         ImGui::NewFrame();
 
         // render your GUI
-        renderer.render(tree);
+        renderer.render(tree, handler);
 
         // Render dear imgui into screen
         ImGui::Render();

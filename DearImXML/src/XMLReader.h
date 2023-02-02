@@ -10,7 +10,7 @@
 #include <stack>
 #include <unordered_map>
 
-namespace DearImXML {
+namespace ImXML {
 	class XMLReader
 	{
 	private:

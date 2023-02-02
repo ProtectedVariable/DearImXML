@@ -38,6 +38,7 @@ set(SRC
 	DearImXML/src/XMLReader.h DearImXML/src/XMLReader.cpp
 	DearImXML/src/XMLTree.h
 	DearImXML/src/XMLRenderer.h
+	DearImXML/src/XMLEventHandler.h
 )
 		
 add_library(DearImXML SHARED "${SRC}")

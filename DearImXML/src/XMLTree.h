@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-namespace DearImXML {
+namespace ImXML {
 
 	struct XMLNode
 	{

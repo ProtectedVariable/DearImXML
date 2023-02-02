@@ -1,7 +1,7 @@
 #ifndef DEARIMXML_IMGUIENUM_H
 #define DEARIMXML_IMGUIENUM_H
 
-namespace DearImXML {
+namespace ImXML {
 	enum ImGuiEnum {
 		BEGIN, BUTTON
 	};
