@@ -3,13 +3,16 @@
 
 #include <XMLTree.h>
 #include <XMLEventHandler.h>
+#include <XMLDynamicBind.h>
 #include <ImGUI/imgui.h>
+#include <unordered_map>
 
 namespace ImXML {
 	class XMLRenderer
 	{
 	private:
 		int sameline = 0;
+		std::unordered_map<std::string, XMLDynamicBind> dynamicBinds;
 
 		void renderMenu(XMLNode& node, XMLEventHandler& handler)  {
 			if(node.type == ImGuiEnum::MENU) {
@@ -61,6 +64,10 @@ namespace ImXML {
 				ImGui::Text("%s", node.args["label"].c_str());
 			}
 
+			if(node.type == ImGuiEnum::SLIDERFLOAT) {
+				ImGui::SliderFloat(node.args["label"].c_str(), (float*)dynamicBinds.at(node.args["dynamic"]).ptr, std::stof(node.args["min"]), std::stof(node.args["max"]));
+			}
+
 			if(node.type == ImGuiEnum::SAMELINE) {
 				sameline = 1;
 			}
@@ -91,6 +98,10 @@ namespace ImXML {
 		void render(XMLTree& tree, XMLEventHandler& handler) {
 			XMLNode root = tree.getRoot();
 			traverse(root, handler);
+		}
+
+		void addDynamicBind(const std::string& name, const XMLDynamicBind& bind) {
+			dynamicBinds.insert({name, bind});
 		}
 	};
 	

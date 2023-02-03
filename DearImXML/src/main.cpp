@@ -16,6 +16,7 @@
 #include <XMLTree.h>
 #include <XMLRenderer.h>
 #include <XMLEventHandler.h>
+#include <XMLDynamicBind.h>
 
 class Handler : public ImXML::XMLEventHandler {
     virtual void onNodeBegin(ImXML::XMLNode& node) override {
@@ -97,6 +98,8 @@ int main(int argc, char const *argv[])
 	ImXML::XMLReader reader = ImXML::XMLReader();
 	ImXML::XMLTree tree = reader.read("Assets/test.xml");
     ImXML::XMLRenderer renderer;
+    float float0;
+    renderer.addDynamicBind(std::string("float0"), {.ptr = &float0});
     Handler handler;
 
 	while (!glfwWindowShouldClose(window))
