@@ -35,7 +35,7 @@ set(SRC
 	includes/ImGUI/ImSequencer.cpp
 
 	DearImXML/src/ImGuiEnum.h
-	DearImXML/src/XMLReader.h DearImXML/src/XMLReader.cpp
+	DearImXML/src/XMLReader.h
 	DearImXML/src/XMLTree.h
 	DearImXML/src/XMLRenderer.h
 	DearImXML/src/XMLEventHandler.h

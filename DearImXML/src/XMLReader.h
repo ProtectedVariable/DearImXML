@@ -1,5 +1,5 @@
-#ifndef DEARIMXML_XMLREADER_H
-#define DEARIMXML_XMLREADER_H
+#ifndef XMLREADER_H
+#define XMLREADER_H
 
 #include <string>
 #include <XMLTree.h>
@@ -9,6 +9,7 @@
 #include <regex>
 #include <stack>
 #include <unordered_map>
+#include <ImGUI/imgui.h>
 
 namespace ImXML {
 	class XMLReader
@@ -17,6 +18,7 @@ namespace ImXML {
 		/* data */
 		static constexpr const char* ws = " \t\n\r\f\v";
 		static const std::unordered_map<std::string, ImGuiEnum> tagnames;
+		static const std::unordered_map<std::string, int> flagnames;
 
 		// trim from end of string (right)
 		inline std::string& rtrim(std::string& s, const char* t = ws) {
@@ -57,6 +59,15 @@ namespace ImXML {
 			return tokens;
 		}
 
+		int parseFlags(std::string& flagstr) {
+			auto flags = tokenize(flagstr, "|,");
+			int parsed = 0;
+			for(auto flag : flags) {
+				parsed |= flagnames.at(flag);
+			}
+			return parsed;
+		}
+
 		XMLNode* stringToNode(std::string& str) {
 			std::regex tagname = std::regex(R"(<\/?\w+)");
 			std::smatch m;
@@ -77,6 +88,10 @@ namespace ImXML {
 					auto argstr = x.str();
 					auto argtoken = tokenize(argstr, "=");
 					node->args.insert({argtoken[0], argtoken[1].substr(1, argtoken[1].length()-2)});
+					//Special case, flags must be converted
+					if(argtoken[0] == "flags") {
+						node->flags = parseFlags(node->args["flags"]);
+					}
 				}
 				searchStart = m.suffix().first;
 			}
@@ -142,7 +157,24 @@ namespace ImXML {
 
 		return traverse(taglines);
 	}
+
+	const std::unordered_map<std::string, ImGuiEnum> XMLReader::tagnames = {
+		{ "begin", ImGuiEnum::BEGIN },
+		{ "button" , ImGuiEnum::BUTTON },
+		{ "placeholder", ImGuiEnum::PLACEHOLDER },
+		{ "text", ImGuiEnum::TEXT },
+		{ "sameline", ImGuiEnum::SAMELINE },
+		{ "menubar", ImGuiEnum::MENUBAR },
+		{ "menu", ImGuiEnum::MENU },
+		{ "menuitem", ImGuiEnum::MENUITEM },
+	};
+
+	const std::unordered_map<std::string, int> XMLReader::flagnames = {
+		{ "ImGuiWindowFlags_MenuBar", ImGuiWindowFlags_MenuBar },
+		{ "ImGuiWindowFlags_NoCollapse", ImGuiWindowFlags_NoCollapse },
+		{ "ImGuiWindowFlags_NoTitleBar", ImGuiWindowFlags_NoTitleBar },
+	};
 }
 
 
-#endif /* DEARIMXML_XMLREADER_H */
+#endif /* XMLREADER_H */

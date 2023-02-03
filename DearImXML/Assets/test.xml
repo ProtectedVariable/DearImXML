@@ -1,6 +1,18 @@
 <?xml>
 
-<begin name="Title window">
+<begin name="Title window" flags="ImGuiWindowFlags_MenuBar|ImGuiWindowFlags_NoCollapse">
+	<menubar>
+		<menu label="File">
+			<menuitem label="New..."/>
+			<menu label="Open...">
+				<menuitem label="File1.txt" />
+			</menu>
+		</menu>
+		<menu label="Edit">
+			<menuitem label="Foo"/>
+			<menuitem label="Bar"/>
+		</menu>
+	</menubar>
 	<sameline>
 		<text label="Text"/>
 		<button id="btn0" label="Hello!"/>

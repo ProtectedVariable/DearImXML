@@ -12,6 +12,7 @@ namespace ImXML {
 	{
 		ImGuiEnum type;
 		std::unordered_map<std::string, std::string> args;
+		int flags;
 		std::vector<XMLNode*> children;
 	};
 	
