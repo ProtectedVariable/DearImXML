@@ -68,6 +68,10 @@ namespace ImXML {
 				ImGui::SliderFloat(node.args["label"].c_str(), (float*)dynamicBinds.at(node.args["dynamic"]).ptr, std::stof(node.args["min"]), std::stof(node.args["max"]));
 			}
 
+			if(node.type == ImGuiEnum::INPUTTEXT) {
+				ImGui::InputText(node.args["label"].c_str(), (char*)dynamicBinds.at(node.args["dynamic"]).ptr, dynamicBinds.at(node.args["dynamic"]).size, node.flags);
+			}
+
 			if(node.type == ImGuiEnum::SAMELINE) {
 				sameline = 1;
 			}

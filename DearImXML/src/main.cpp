@@ -99,7 +99,9 @@ int main(int argc, char const *argv[])
 	ImXML::XMLTree tree = reader.read("Assets/test.xml");
     ImXML::XMLRenderer renderer;
     float float0;
+    char buf[512] = {0};
     renderer.addDynamicBind(std::string("float0"), {.ptr = &float0});
+    renderer.addDynamicBind(std::string("str0"), {.ptr = buf, .size=512});
     Handler handler;
 
 	while (!glfwWindowShouldClose(window))

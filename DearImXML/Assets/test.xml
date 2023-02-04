@@ -19,5 +19,6 @@
 	</sameline>
 	<text label="new line"/>
 	<sliderfloat label="float" dynamic="float0" min="0", max="1" />
+	<inputtext label="string" dynamic="str0"/>
 	<placeholder id="custom0"/>
 </begin>
