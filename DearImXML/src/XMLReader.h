@@ -169,6 +169,8 @@ namespace ImXML {
 		{ "menuitem", ImGuiEnum::MENUITEM },
 		{ "sliderfloat", ImGuiEnum::SLIDERFLOAT },
 		{ "inputtext", ImGuiEnum::INPUTTEXT },
+		{ "treenode", ImGuiEnum::TREENODE },
+		{ "tree", ImGuiEnum::TREE },
 	};
 
 	const std::unordered_map<std::string, int> XMLReader::flagnames = {

@@ -21,4 +21,12 @@
 	<sliderfloat label="float" dynamic="float0" min="0", max="1" />
 	<inputtext label="string" dynamic="str0"/>
 	<placeholder id="custom0"/>
+	<tree>
+		<treenode label="treeroot">
+			<treenode label="tree0" />
+			<treenode label="tree1">
+				<treenode label="tree2" />
+			</treenode>
+		</treenode>
+	</tree>
 </begin>

@@ -14,7 +14,7 @@ namespace ImXML {
 		int sameline = 0;
 		std::unordered_map<std::string, XMLDynamicBind> dynamicBinds;
 
-		void renderMenu(XMLNode& node, XMLEventHandler& handler)  {
+		void renderMenu(XMLNode& node, XMLEventHandler& handler) {
 			if(node.type == ImGuiEnum::MENU) {
 				if(ImGui::BeginMenu(node.args["label"].c_str())) {
 					for(auto child : node.children) {
@@ -28,6 +28,24 @@ namespace ImXML {
 					}
 					ImGui::EndMenu();
 				}
+			}
+		}
+
+		void renderTree(XMLNode& node, XMLEventHandler& handler) {
+			if(node.type == ImGuiEnum::TREENODE) {
+				if(ImGui::TreeNode(node.args["label"].c_str())) {
+					handler.onEvent(node);
+					for(auto child : node.children) {
+						renderTree(*child, handler);
+					}
+					ImGui::TreePop();
+				}
+			} else if(node.type == ImGuiEnum::TREE) {
+				for(auto child : node.children) {
+					renderTree(*child, handler);
+				}
+			} else {
+				onNodeBegin(node, handler);
 			}
 		}
 
@@ -70,6 +88,10 @@ namespace ImXML {
 
 			if(node.type == ImGuiEnum::INPUTTEXT) {
 				ImGui::InputText(node.args["label"].c_str(), (char*)dynamicBinds.at(node.args["dynamic"]).ptr, dynamicBinds.at(node.args["dynamic"]).size, node.flags);
+			}
+
+			if(node.type == ImGuiEnum::TREE) {
+				renderTree(node, handler);
 			}
 
 			if(node.type == ImGuiEnum::SAMELINE) {
