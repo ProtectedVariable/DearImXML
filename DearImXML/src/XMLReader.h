@@ -171,6 +171,8 @@ namespace ImXML {
 		{ "inputtext", ImGuiEnum::INPUTTEXT },
 		{ "treenode", ImGuiEnum::TREENODE },
 		{ "tree", ImGuiEnum::TREE },
+		{ "columns", ImGuiEnum::COLUMNS },
+		{ "column", ImGuiEnum::COLUMN },
 	};
 
 	const std::unordered_map<std::string, int> XMLReader::flagnames = {

@@ -58,6 +58,10 @@ namespace ImXML {
 				ImGui::SameLine();
 			}
 
+			if(node.type == ImGuiEnum::COLUMNS) {
+				ImGui::Columns(std::stoi(node.args["count"]));
+			}
+
 			if(node.type == ImGuiEnum::MENUBAR) {
 				if(ImGui::BeginMenuBar()) {
 					for(auto child : node.children) {
@@ -106,6 +110,9 @@ namespace ImXML {
 			
 			if(node.type == ImGuiEnum::SAMELINE) {
 				sameline = false;
+			}
+			if(node.type == ImGuiEnum::COLUMN) {
+				ImGui::NextColumn();
 			}
 			handler.onNodeEnd(node);
 		}

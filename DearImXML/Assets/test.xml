@@ -1,6 +1,7 @@
 <?xml>
 
 <begin name="Title window" flags="ImGuiWindowFlags_MenuBar|ImGuiWindowFlags_NoCollapse">
+	<columns count="2"/>
 	<menubar>
 		<menu label="File">
 			<menuitem label="New..."/>
@@ -13,20 +14,24 @@
 			<menuitem label="Bar"/>
 		</menu>
 	</menubar>
-	<sameline>
-		<text label="Text"/>
-		<button id="btn0" label="Hello!"/>
-	</sameline>
-	<text label="new line"/>
-	<sliderfloat label="float" dynamic="float0" min="0", max="1" />
-	<inputtext label="string" dynamic="str0"/>
-	<placeholder id="custom0"/>
-	<tree>
-		<treenode label="treeroot">
-			<treenode label="tree0" />
-			<treenode label="tree1">
-				<treenode label="tree2" />
+	<column>
+		<sameline>
+			<text label="Text"/>
+			<button id="btn0" label="Hello!"/>
+		</sameline>
+		<text label="new line"/>
+		<sliderfloat label="float" dynamic="float0" min="0", max="1" />
+		<inputtext label="string" dynamic="str0"/>
+		<placeholder id="custom0"/>
+	</column>
+	<column>
+		<tree>
+			<treenode label="treeroot">
+				<treenode label="tree0" />
+				<treenode label="tree1">
+					<treenode label="tree2" />
+				</treenode>
 			</treenode>
-		</treenode>
-	</tree>
+		</tree>
+	</column>
 </begin>
