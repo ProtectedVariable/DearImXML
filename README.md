@@ -70,7 +70,10 @@ Dear ImXML allows you to writer ImGui interfaces in an XML format and render / i
 
 For example this XML file
 ```XML
+<?xml version="1.0" encoding="UTF-8"?>
+
 <begin name="Title window" flags="ImGuiWindowFlags_MenuBar|ImGuiWindowFlags_NoCollapse">
+	<columns count="2"/>
 	<menubar>
 		<menu label="File">
 			<menuitem label="New..."/>
@@ -83,19 +86,42 @@ For example this XML file
 			<menuitem label="Bar"/>
 		</menu>
 	</menubar>
-	<sameline>
-		<text label="Text"/>
-		<button id="btn0" label="Hello!"/>
-	</sameline>
-	<text label="new line"/>
-	<sliderfloat label="float" dynamic="float0" min="0", max="1" />
-	<placeholder id="custom0"/>
+	<column>
+		<sameline>
+			<text label="Text"/>
+			<button id="btn0" label="Hello!"/>
+		</sameline>
+		<text label="new line"/>
+		<sliderfloat label="float" dynamic="float0" min="0" max="1" />
+		<inputtext label="string" dynamic="str0"/>
+	</column>
+	<column>
+		<tree>
+			<treenode label="treeroot">
+				<treenode label="tree0" />
+				<treenode label="tree1">
+					<treenode label="tree2" />
+				</treenode>
+			</treenode>
+		</tree>
+		<group>
+			<colorpicker3 dynamic="color0" />
+		</group>
+		<group>
+			<PopupContextWindow>
+				<text label="context popup"/>
+			</PopupContextWindow>
+			<text label="right click to open popup"/>
+		</group>
+	</column>
 </begin>
+
 ```
 
 Turns into this window
 ![Demo gif](images/demo.gif)
 
+Note that the project is at an early phase, not all ImGui elements are supported but it's rapidly being expanded.
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)-->
 
 
