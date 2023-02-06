@@ -12,6 +12,7 @@ namespace ImXML {
 	{
 	private:
 		int sameline = 0;
+		bool popup = false;
 		std::unordered_map<std::string, XMLDynamicBind> dynamicBinds;
 
 		void renderMenu(XMLNode& node, XMLEventHandler& handler) {
@@ -49,8 +50,11 @@ namespace ImXML {
 			}
 		}
 
-		void onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
+		void onNodeBegin(XMLNode& node, XMLEventHandler& handler, bool inPopup=false) {
 			handler.onNodeBegin(node);
+			if(!inPopup && popup) {
+				return;
+			}
 			
 			if(sameline == 1) {
 				sameline++;
@@ -79,6 +83,17 @@ namespace ImXML {
 			if(node.type == ImGuiEnum::GROUP) {
 				ImGui::BeginGroup();
 			}
+
+			if(node.type == ImGuiEnum::POPUPCONTEXTWINDOW) {
+				popup = true;
+				if(ImGui::BeginPopupContextWindow()) {
+					for(auto child : node.children) {
+						traverse(*child, handler, true);
+					}
+					ImGui::EndPopup();
+				}
+			}
+
 			if(node.type == ImGuiEnum::COLORPICKER3) {
 				ImGui::ColorPicker3(node.args["label"].c_str(), (float*)dynamicBinds.at(node.args["dynamic"]).ptr);
 			}
@@ -119,11 +134,13 @@ namespace ImXML {
 			}
 		}
 
-		void onNodeEnd(XMLNode& node, XMLEventHandler& handler) {
+		void onNodeEnd(XMLNode& node, XMLEventHandler& handler, bool inPopup=false) {
 			if(node.type == ImGuiEnum::BEGIN) {
 				ImGui::End();
 			}
-			
+			if(node.type == ImGuiEnum::POPUPCONTEXTWINDOW) {
+				popup = false;
+			}
 			if(node.type == ImGuiEnum::SAMELINE) {
 				sameline = false;
 			}
@@ -136,12 +153,12 @@ namespace ImXML {
 			handler.onNodeEnd(node);
 		}
 
-		void traverse(XMLNode& root, XMLEventHandler& handler) {
-			onNodeBegin(root, handler);
+		void traverse(XMLNode& root, XMLEventHandler& handler, bool inPopup=false) {
+			onNodeBegin(root, handler, inPopup);
 			for(auto child : root.children) {
-				traverse(*child, handler);
+				traverse(*child, handler, inPopup);
 			}
-			onNodeEnd(root, handler);
+			onNodeEnd(root, handler, inPopup);
 		}
 	public:
 		XMLRenderer(/* args */);

@@ -1,4 +1,4 @@
-<?xml>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <begin name="Title window" flags="ImGuiWindowFlags_MenuBar|ImGuiWindowFlags_NoCollapse">
 	<columns count="2"/>
@@ -20,7 +20,7 @@
 			<button id="btn0" label="Hello!"/>
 		</sameline>
 		<text label="new line"/>
-		<sliderfloat label="float" dynamic="float0" min="0", max="1" />
+		<sliderfloat label="float" dynamic="float0" min="0" max="1" />
 		<inputtext label="string" dynamic="str0"/>
 		<placeholder id="custom0"/>
 	</column>
@@ -35,7 +35,12 @@
 		</tree>
 		<group>
 			<colorpicker3 dynamic="color0" />
-			<coloredit4 dynamic="color1" />
+		</group>
+		<group>
+			<PopupContextWindow>
+				<text label="context popup"/>
+			</PopupContextWindow>
+			<text label="right click to open popup"/>
 		</group>
 	</column>
 </begin>

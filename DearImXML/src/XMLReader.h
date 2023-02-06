@@ -10,6 +10,7 @@
 #include <stack>
 #include <unordered_map>
 #include <ImGUI/imgui.h>
+#include <algorithm>
 
 namespace ImXML {
 	class XMLReader
@@ -75,6 +76,7 @@ namespace ImXML {
 			auto prefix = m.str(0);
 			auto name = prefix.substr(1, prefix.length()-1);
 			XMLNode* node = new XMLNode;
+			std::transform(name.begin(), name.end(), name.begin(), ::tolower);
 			if(tagnames.find(name) == tagnames.end()) {
 				throw std::runtime_error("Unknown tag " + name);
 			}
@@ -178,6 +180,7 @@ namespace ImXML {
 		{ "colorpicker4", ImGuiEnum::COLORPICKER4 },
 		{ "coloredit3", ImGuiEnum::COLOREDIT3 },
 		{ "coloredit4", ImGuiEnum::COLOREDIT4 },
+		{ "popupcontextwindow", ImGuiEnum::POPUPCONTEXTWINDOW },
 
 	};
 
