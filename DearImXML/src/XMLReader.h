@@ -173,6 +173,12 @@ namespace ImXML {
 		{ "tree", ImGuiEnum::TREE },
 		{ "columns", ImGuiEnum::COLUMNS },
 		{ "column", ImGuiEnum::COLUMN },
+		{ "group", ImGuiEnum::GROUP },
+		{ "colorpicker3", ImGuiEnum::COLORPICKER3 },
+		{ "colorpicker4", ImGuiEnum::COLORPICKER4 },
+		{ "coloredit3", ImGuiEnum::COLOREDIT3 },
+		{ "coloredit4", ImGuiEnum::COLOREDIT4 },
+
 	};
 
 	const std::unordered_map<std::string, int> XMLReader::flagnames = {

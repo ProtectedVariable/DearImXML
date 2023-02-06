@@ -100,8 +100,12 @@ int main(int argc, char const *argv[])
     ImXML::XMLRenderer renderer;
     float float0;
     char buf[512] = {0};
+    float color0[3] = {0};
+    float color1[4] = {0};
     renderer.addDynamicBind(std::string("float0"), {.ptr = &float0});
     renderer.addDynamicBind(std::string("str0"), {.ptr = buf, .size=512});
+    renderer.addDynamicBind(std::string("color0"), {.ptr = color0});
+    renderer.addDynamicBind(std::string("color1"), {.ptr = color1});
     Handler handler;
 
 	while (!glfwWindowShouldClose(window))

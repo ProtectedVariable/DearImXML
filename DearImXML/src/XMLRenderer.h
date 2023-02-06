@@ -76,6 +76,22 @@ namespace ImXML {
 				ImGui::Begin(node.args["name"].c_str(), nullptr, node.flags);
 			}
 
+			if(node.type == ImGuiEnum::GROUP) {
+				ImGui::BeginGroup();
+			}
+			if(node.type == ImGuiEnum::COLORPICKER3) {
+				ImGui::ColorPicker3(node.args["label"].c_str(), (float*)dynamicBinds.at(node.args["dynamic"]).ptr);
+			}
+			if(node.type == ImGuiEnum::COLORPICKER4) {
+				ImGui::ColorPicker4(node.args["label"].c_str(), (float*)dynamicBinds.at(node.args["dynamic"]).ptr);
+			}
+			if(node.type == ImGuiEnum::COLOREDIT3) {
+				ImGui::ColorEdit3(node.args["label"].c_str(), (float*)dynamicBinds.at(node.args["dynamic"]).ptr);
+			}
+			if(node.type == ImGuiEnum::COLOREDIT4) {
+				ImGui::ColorEdit4(node.args["label"].c_str(), (float*)dynamicBinds.at(node.args["dynamic"]).ptr);
+			}
+
 			if(node.type == ImGuiEnum::BUTTON) {
 				if(ImGui::Button(node.args["label"].c_str())) {
 					handler.onEvent(node);
@@ -113,6 +129,9 @@ namespace ImXML {
 			}
 			if(node.type == ImGuiEnum::COLUMN) {
 				ImGui::NextColumn();
+			}
+			if(node.type == ImGuiEnum::GROUP) {
+				ImGui::EndGroup();
 			}
 			handler.onNodeEnd(node);
 		}

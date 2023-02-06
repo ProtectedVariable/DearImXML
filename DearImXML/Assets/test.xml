@@ -33,5 +33,9 @@
 				</treenode>
 			</treenode>
 		</tree>
+		<group>
+			<colorpicker3 dynamic="color0" />
+			<coloredit4 dynamic="color1" />
+		</group>
 	</column>
 </begin>
