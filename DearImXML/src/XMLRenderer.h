@@ -76,7 +76,6 @@ namespace ImXML {
 			}
 			
 			if(node.type == ImGuiEnum::BEGIN) {
-				auto c = std::string("");
 				ImGui::Begin(node.args["name"].c_str(), nullptr, node.flags);
 			}
 
