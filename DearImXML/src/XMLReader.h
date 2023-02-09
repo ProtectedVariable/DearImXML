@@ -181,6 +181,7 @@ namespace ImXML {
 		{ "coloredit3", ImGuiEnum::COLOREDIT3 },
 		{ "coloredit4", ImGuiEnum::COLOREDIT4 },
 		{ "popupcontextwindow", ImGuiEnum::POPUPCONTEXTWINDOW },
+		{ "separator", ImGuiEnum::SEPARATOR },
 
 	};
 

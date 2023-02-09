@@ -36,6 +36,7 @@
 		<group>
 			<colorpicker3 dynamic="color0" />
 		</group>
+		<separator/>
 		<group>
 			<PopupContextWindow>
 				<text label="context popup"/>

@@ -128,6 +128,10 @@ namespace ImXML {
 				renderTree(node, handler);
 			}
 
+			if(node.type == ImGuiEnum::SEPARATOR) {
+				ImGui::Separator();
+			}
+
 			if(node.type == ImGuiEnum::SAMELINE) {
 				sameline = 1;
 			}
