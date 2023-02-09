@@ -1,5 +1,5 @@
-#ifndef DEARIMXML_IMGUIENUM_H
-#define DEARIMXML_IMGUIENUM_H
+#ifndef IMGUIENUM_H
+#define IMGUIENUM_H
 
 namespace ImXML {
 	enum ImGuiEnum {
@@ -9,4 +9,4 @@ namespace ImXML {
 	};
 }
 
-#endif /* DEARIMXML_IMGUIENUM_H */
+#endif /* IMGUIENUM_H */

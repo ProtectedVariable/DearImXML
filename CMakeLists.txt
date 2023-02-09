@@ -28,11 +28,12 @@ set(SRC
 	includes/ImGUI/imgui.cpp
 	includes/ImGUI/imgui_widgets.cpp
 	includes/ImGUI/imgui_draw.cpp
-	includes/ImGUI/imgui_demo.cpp
 	includes/ImGUI/ImCurveEdit.cpp
 	includes/ImGUI/ImGradient.cpp
 	includes/ImGUI/ImGuizmo.cpp
 	includes/ImGUI/ImSequencer.cpp
+	includes/ImGUI/imgui_impl_opengl3_loader.h
+	includes/ImGUI/imgui_tables.cpp
 
 	DearImXML/src/ImGuiEnum.h
 	DearImXML/src/XMLReader.h
