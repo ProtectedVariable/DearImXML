@@ -4,6 +4,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 set(CMAKE_CXX_STANDARD 17)
 set(GLFW_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libs/glfw/")
 
+message(STATUS "Bulding ${PROJECT_NAME}")
+
 set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
@@ -42,11 +44,14 @@ set(SRC
 	DearImXML/src/XMLEventHandler.h
 )
 		
-add_library(DearImXML SHARED "${SRC}")
+add_library(DearImXML STATIC "${SRC}")
 add_executable(DearImXMLTest DearImXML/src/main.cpp)
 target_link_libraries(DearImXMLTest DearImXML)
-
-
+target_include_directories(${PROJECT_NAME} PUBLIC
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/DearImXML/src>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
+)
 file(COPY DearImXML/Assets DESTINATION ${CMAKE_BINARY_DIR})
 
 if(APPLE)

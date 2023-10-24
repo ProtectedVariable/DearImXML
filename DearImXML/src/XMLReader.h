@@ -102,7 +102,7 @@ namespace ImXML {
 
 		XMLTree traverse(std::vector<std::string>& tags) {
 			std::stack<XMLNode*> parents;
-			XMLNode* lastparent;
+			XMLNode* lastparent = nullptr;
 			for(auto tagstr : tags) {
 				if(tagstr.at(1) == '/') {
 					lastparent = parents.top();
