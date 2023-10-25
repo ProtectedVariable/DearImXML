@@ -4,35 +4,33 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 set(CMAKE_CXX_STANDARD 17)
 set(GLFW_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libs/glfw/")
 
+message(STATUS "Bulding ${PROJECT_NAME}")
+
 set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 
-set(EXTRA_SRC "")
-if(NOT EXISTS "${GLFW_LIB_PATH}")
-	execute_process(COMMAND git clone https://github.com/glfw/glfw.git "${GLFW_LIB_PATH}")
-endif()
-add_subdirectory(libs/glfw/)
+include(FetchContent)
+FetchContent_Declare(
+  GLFW
+  GIT_REPOSITORY https://github.com/glfw/glfw.git
+  GIT_TAG master
+)
+FetchContent_MakeAvailable(GLFW)
+
 
 include_directories(includes)
 include_directories(DearImXML/src)
 
 set(SRC 
-	includes/ImGUI/gl3w.c
+	includes/GL/gl3w.c
 	includes/ImGUI/imgui_impl_glfw.cpp
 	includes/ImGUI/imgui_impl_opengl3.cpp
-	includes/ImGUI/imgui_impl_glfw.h
-	includes/ImGUI/imgui_impl_opengl3.h
 	includes/ImGUI/imgui.cpp
 	includes/ImGUI/imgui_widgets.cpp
 	includes/ImGUI/imgui_draw.cpp
-	includes/ImGUI/ImCurveEdit.cpp
-	includes/ImGUI/ImGradient.cpp
-	includes/ImGUI/ImGuizmo.cpp
-	includes/ImGUI/ImSequencer.cpp
-	includes/ImGUI/imgui_impl_opengl3_loader.h
 	includes/ImGUI/imgui_tables.cpp
 
 	DearImXML/src/ImGuiEnum.h
@@ -42,11 +40,14 @@ set(SRC
 	DearImXML/src/XMLEventHandler.h
 )
 		
-add_library(DearImXML SHARED "${SRC}")
+add_library(DearImXML STATIC "${SRC}")
 add_executable(DearImXMLTest DearImXML/src/main.cpp)
 target_link_libraries(DearImXMLTest DearImXML)
-
-
+target_include_directories(${PROJECT_NAME} PUBLIC
+        $<INSTALL_INTERFACE:include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/DearImXML/src>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
+)
 file(COPY DearImXML/Assets DESTINATION ${CMAKE_BINARY_DIR})
 
 if(APPLE)

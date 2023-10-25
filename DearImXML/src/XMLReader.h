@@ -102,7 +102,7 @@ namespace ImXML {
 
 		XMLTree traverse(std::vector<std::string>& tags) {
 			std::stack<XMLNode*> parents;
-			XMLNode* lastparent;
+			XMLNode* lastparent = nullptr;
 			for(auto tagstr : tags) {
 				if(tagstr.at(1) == '/') {
 					lastparent = parents.top();
@@ -233,7 +233,7 @@ namespace ImXML {
 		{ "ImGuiInputTextFlags_AllowTabInput", ImGuiInputTextFlags_AllowTabInput },
 		{ "ImGuiInputTextFlags_CtrlEnterForNewLine", ImGuiInputTextFlags_CtrlEnterForNewLine },
 		{ "ImGuiInputTextFlags_NoHorizontalScroll", ImGuiInputTextFlags_NoHorizontalScroll },
-		{ "ImGuiInputTextFlags_AlwaysInsertMode", ImGuiInputTextFlags_AlwaysInsertMode },
+		{ "ImGuiInputTextFlags_AlwaysOverwrite", ImGuiInputTextFlags_AlwaysOverwrite },
 		{ "ImGuiInputTextFlags_ReadOnly", ImGuiInputTextFlags_ReadOnly },
 		{ "ImGuiInputTextFlags_Password", ImGuiInputTextFlags_Password },
 		{ "ImGuiInputTextFlags_NoUndoRedo", ImGuiInputTextFlags_NoUndoRedo },
