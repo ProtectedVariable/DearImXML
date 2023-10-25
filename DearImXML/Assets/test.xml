@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<begin name="Title window" flags="ImGuiWindowFlags_MenuBar|ImGuiWindowFlags_NoCollapse">
+<begin name="Title window" flags="ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse">
 	<columns count="2"/>
 	<menubar>
 		<menu label="File">
