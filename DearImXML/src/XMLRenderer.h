@@ -62,9 +62,18 @@ namespace ImXML {
 				ImGui::SameLine();
 			}
 
-			if(node.type == ImGuiEnum::COLUMNS) {
-				ImGui::Columns(std::stoi(node.args["count"]));
+			if(node.type == ImGuiEnum::COLUMN) {
+				ImGui::TableNextColumn();
 			}
+
+			if(node.type == ImGuiEnum::ROW) {
+				ImGui::TableNextRow();
+			}
+
+			if(node.type == ImGuiEnum::TABLE) {
+				ImGui::BeginTable(node.args["name"].c_str(), std::stoi(node.args["columns"]));
+			}
+
 
 			if(node.type == ImGuiEnum::MENUBAR) {
 				if(ImGui::BeginMenuBar()) {
@@ -152,6 +161,9 @@ namespace ImXML {
 			}
 			if(node.type == ImGuiEnum::GROUP) {
 				ImGui::EndGroup();
+			}
+			if(node.type == ImGuiEnum::TABLE) {
+				ImGui::EndTable();
 			}
 			handler.onNodeEnd(node);
 		}
