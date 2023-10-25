@@ -6,7 +6,6 @@
 #include <ImGUI/imgui_internal.h>
 #include <ImGUI/imgui_impl_glfw.h>
 #include <ImGUI/imgui_impl_opengl3.h>
-#include <ImGUI/ImGuizmo.h>
 
 #include <string>
 #include <iostream>
