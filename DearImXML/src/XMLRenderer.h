@@ -67,11 +67,11 @@ namespace ImXML {
 			}
 
 			if(node.type == ImGuiEnum::ROW) {
-				ImGui::TableNextRow();
+				ImGui::TableNextRow(node.flags);
 			}
 
 			if(node.type == ImGuiEnum::TABLE) {
-				ImGui::BeginTable(node.args["name"].c_str(), std::stoi(node.args["columns"]));
+				ImGui::BeginTable(node.args["name"].c_str(), std::stoi(node.args["columns"]), node.flags);
 			}
 
 
