@@ -1,5 +1,4 @@
-#ifndef DEARIMXML_XMLTREE_H
-#define DEARIMXML_XMLTREE_H
+#pragma once
 
 #include <ImGuiEnum.h>
 #include <unordered_map>
@@ -15,7 +14,7 @@ namespace ImXML {
 		int flags = 0;
 		std::vector<XMLNode*> children;
 	};
-	
+
 
 	class XMLTree
 	{
@@ -29,15 +28,4 @@ namespace ImXML {
 			return root;
 		}
 	};
-	
-	XMLTree::XMLTree(XMLNode root) : root(root)
-	{
-	}
-	
-	XMLTree::~XMLTree()
-	{
-	}
-	
 }
-
-#endif /* DEARIMXML_XMLTREE_H */

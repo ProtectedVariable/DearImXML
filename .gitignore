@@ -1,5 +1,6 @@
 build/
 libs/
 .vscode/
-
+.vs/
 *.raw
+out/

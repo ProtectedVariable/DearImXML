@@ -1,0 +1,27 @@
+#pragma once
+
+namespace ImXML {
+enum ImGuiEnum {
+    BEGIN,
+    PLACEHOLDER,
+    BUTTON,
+    TEXT,
+    SAMELINE,
+    MENUBAR,
+    MENU,
+    MENUITEM,
+    SLIDERFLOAT,
+    INPUTTEXT,
+    TREENODE,
+    TREE,
+    COLUMNS,
+    COLUMN,
+    GROUP,
+    COLORPICKER3,
+    COLORPICKER4,
+    COLOREDIT3,
+    COLOREDIT4,
+    POPUPCONTEXTWINDOW,
+    SEPARATOR,
+};
+}
