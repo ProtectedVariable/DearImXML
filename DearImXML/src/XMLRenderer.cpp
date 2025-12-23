@@ -49,8 +49,16 @@ void XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler, bool inPo
         ImGui::SameLine();
     }
 
-    if (node.type == ImGuiEnum::COLUMNS) {
-        ImGui::Columns(std::stoi(node.args["count"]));
+    if (node.type == ImGuiEnum::COLUMN) {
+        ImGui::TableNextColumn();
+    }
+
+    if (node.type == ImGuiEnum::ROW) {
+        ImGui::TableNextRow(node.flags);
+    }
+
+    if (node.type == ImGuiEnum::TABLE) {
+        ImGui::BeginTable(node.args["name"].c_str(), std::stoi(node.args["columns"]), node.flags);
     }
 
     if (node.type == ImGuiEnum::MENUBAR) {
@@ -142,6 +150,9 @@ void XMLRenderer::onNodeEnd(XMLNode& node, XMLEventHandler& handler, bool inPopu
     if (node.type == ImGuiEnum::GROUP) {
         ImGui::EndGroup();
     }
+    if (node.type == ImGuiEnum::TABLE) {
+        ImGui::EndTable();
+    }
     handler.onNodeEnd(node);
 }
 
@@ -169,4 +180,3 @@ XMLRenderer::~XMLRenderer() {
 }
 
 }  // namespace ImXML
-
