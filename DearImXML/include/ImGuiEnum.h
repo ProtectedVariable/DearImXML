@@ -15,6 +15,8 @@ enum ImGuiEnum {
     TREENODE,
     TREE,
     TABLE,
+    SETUPCOLUMN,
+    HEADER,
     ROW,
     COLUMN,
     GROUP,

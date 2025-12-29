@@ -24,6 +24,8 @@ class XMLRenderer {
 
     void traverse(XMLNode& root, XMLEventHandler& handler, bool inPopup = false);
 
+    XMLDynamicBind getDynamicBind(const XMLNode& node);
+
    public:
     XMLRenderer(/* args */);
     ~XMLRenderer();

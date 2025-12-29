@@ -53,12 +53,20 @@ void XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler, bool inPo
         ImGui::TableNextColumn();
     }
 
+    if (node.type == ImGuiEnum::HEADER) {
+        ImGui::TableHeadersRow();
+    }
+
     if (node.type == ImGuiEnum::ROW) {
         ImGui::TableNextRow(node.flags);
     }
 
     if (node.type == ImGuiEnum::TABLE) {
         ImGui::BeginTable(node.args["name"].c_str(), std::stoi(node.args["columns"]), node.flags);
+    }
+
+    if (node.type == ImGuiEnum::SETUPCOLUMN) {
+        ImGui::TableSetupColumn(node.args["label"].c_str(), node.flags, std::stof(node.args["width"]));
     }
 
     if (node.type == ImGuiEnum::MENUBAR) {
@@ -88,17 +96,18 @@ void XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler, bool inPo
         }
     }
 
+    auto bind = getDynamicBind(node);
     if (node.type == ImGuiEnum::COLORPICKER3) {
-        ImGui::ColorPicker3(node.args["label"].c_str(), (float*) dynamicBinds.at(node.args["dynamic"]).ptr);
+        ImGui::ColorPicker3(node.args["label"].c_str(), (float*) bind.ptr);
     }
     if (node.type == ImGuiEnum::COLORPICKER4) {
-        ImGui::ColorPicker4(node.args["label"].c_str(), (float*) dynamicBinds.at(node.args["dynamic"]).ptr);
+        ImGui::ColorPicker4(node.args["label"].c_str(), (float*) bind.ptr);
     }
     if (node.type == ImGuiEnum::COLOREDIT3) {
-        ImGui::ColorEdit3(node.args["label"].c_str(), (float*) dynamicBinds.at(node.args["dynamic"]).ptr);
+        ImGui::ColorEdit3(node.args["label"].c_str(), (float*) bind.ptr);
     }
     if (node.type == ImGuiEnum::COLOREDIT4) {
-        ImGui::ColorEdit4(node.args["label"].c_str(), (float*) dynamicBinds.at(node.args["dynamic"]).ptr);
+        ImGui::ColorEdit4(node.args["label"].c_str(), (float*) bind.ptr);
     }
 
     if (node.type == ImGuiEnum::BUTTON) {
@@ -112,13 +121,15 @@ void XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler, bool inPo
     }
 
     if (node.type == ImGuiEnum::SLIDERFLOAT) {
-        ImGui::SliderFloat(node.args["label"].c_str(), (float*) dynamicBinds.at(node.args["dynamic"]).ptr, std::stof(node.args["min"]),
-                           std::stof(node.args["max"]));
+        ImGui::SliderFloat(node.args["label"].c_str(), (float*) bind.ptr, std::stof(node.args["min"]), std::stof(node.args["max"]));
     }
 
     if (node.type == ImGuiEnum::INPUTTEXT) {
-        ImGui::InputText(node.args["label"].c_str(), (char*) dynamicBinds.at(node.args["dynamic"]).ptr, dynamicBinds.at(node.args["dynamic"]).size,
-                         node.flags);
+        if (node.args.contains("hint")) {
+            ImGui::InputTextWithHint(node.args["label"].c_str(), node.args["hint"].c_str(), (char*) bind.ptr, bind.size, node.flags);
+        } else {
+            ImGui::InputText(node.args["label"].c_str(), (char*) bind.ptr, bind.size, node.flags);
+        }
     }
 
     if (node.type == ImGuiEnum::TREE) {
@@ -162,6 +173,15 @@ void XMLRenderer::traverse(XMLNode& root, XMLEventHandler& handler, bool inPopup
         traverse(*child, handler, inPopup);
     }
     onNodeEnd(root, handler, inPopup);
+}
+
+XMLDynamicBind XMLRenderer::getDynamicBind(const XMLNode& node) {
+    if (node.args.contains("dynamic")) {
+        if (dynamicBinds.contains(node.args.at("dynamic"))) {
+            return dynamicBinds.at(node.args.at("dynamic"));
+        }
+    }
+    return {nullptr, 0, Float};
 }
 
 void XMLRenderer::render(XMLTree& tree, XMLEventHandler& handler) {
