@@ -49,12 +49,18 @@ int XMLReader::parseFlags(std::string& flagstr) {
     return parsed;
 }
 
+std::string XMLReader::toLower(const std::string& str) {
+    std::string lower = str;
+    std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+    return lower;
+}
+
 XMLNode* XMLReader::stringToNode(std::string& str) {
     std::regex tagname = std::regex(R"(<\/?\w+)");
     std::smatch m;
     std::regex_search(str, m, tagname);
     auto prefix = m.str(0);
-    auto name = prefix.substr(1, prefix.length() - 1);
+    auto name = toLower(prefix.substr(1, prefix.length() - 1));
     XMLNode* node = new XMLNode;
     std::transform(name.begin(), name.end(), name.begin(), ::tolower);
     if (tagnames.find(name) == tagnames.end()) {
@@ -153,8 +159,8 @@ const std::unordered_map<std::string, ImGuiEnum> XMLReader::tagnames = {{"begin"
                                                                         {"table", ImGuiEnum::TABLE},
                                                                         {"row", ImGuiEnum::ROW},
                                                                         {"header", ImGuiEnum::HEADER},
-                                                                        {"setupcolumn", ImGuiEnum::SETUPCOLUMN}
-};
+                                                                        {"setupcolumn", ImGuiEnum::SETUPCOLUMN},
+                                                                        {"beginpopupmodal", ImGuiEnum::BEGINPOPUPMODAL}};
 
 const std::unordered_map<std::string, int> XMLReader::flagnames = {
     //Window flags

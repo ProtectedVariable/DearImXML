@@ -33,6 +33,8 @@ class XMLReader {
 
     int parseFlags(std::string& flagstr);
 
+    std::string toLower(const std::string& str);
+
     XMLNode* stringToNode(std::string& str);
 
     XMLTree traverse(std::vector<std::string>& tags);

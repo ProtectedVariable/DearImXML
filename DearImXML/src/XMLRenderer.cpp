@@ -53,6 +53,16 @@ void XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler, bool inPo
         ImGui::TableNextColumn();
     }
 
+    if (node.type == ImGuiEnum::BEGINPOPUPMODAL) {
+        popup = true;
+        if (ImGui::BeginPopupModal(node.args["name"].c_str(), nullptr, node.flags)) {
+            for (auto child : node.children) {
+                traverse(*child, handler, true);
+            }
+            ImGui::EndPopup();
+        }
+    }
+
     if (node.type == ImGuiEnum::HEADER) {
         ImGui::TableHeadersRow();
     }
@@ -146,12 +156,20 @@ void XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler, bool inPo
 }
 
 void XMLRenderer::onNodeEnd(XMLNode& node, XMLEventHandler& handler, bool inPopup) {
-    if (node.type == ImGuiEnum::BEGIN) {
-        ImGui::End();
+    if (node.type == ImGuiEnum::BEGINPOPUPMODAL) {
+        popup = false;
     }
     if (node.type == ImGuiEnum::POPUPCONTEXTWINDOW) {
         popup = false;
     }
+
+    if (!inPopup && popup) {
+        return;
+    }
+    if (node.type == ImGuiEnum::BEGIN) {
+        ImGui::End();
+    }
+
     if (node.type == ImGuiEnum::SAMELINE) {
         sameline = false;
     }

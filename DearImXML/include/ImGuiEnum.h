@@ -3,6 +3,7 @@
 namespace ImXML {
 enum ImGuiEnum {
     BEGIN,
+    BEGINPOPUPMODAL,
     PLACEHOLDER,
     BUTTON,
     TEXT,
