@@ -21,6 +21,9 @@ struct XMLNode {
     std::vector<XMLNode*> children;
     //Empty for non table nodes
     std::vector<XMLColumnSetup> tables_column_setups;
+
+    template<typename T>
+    T arg(const std::string& key);
 };
 
 class XMLTree {
