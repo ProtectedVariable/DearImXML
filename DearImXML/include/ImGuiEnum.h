@@ -27,5 +27,8 @@ enum ImGuiEnum {
     COLOREDIT4,
     POPUPCONTEXTWINDOW,
     SEPARATOR,
+    COMBO,
+    CHECKBOX,
+    CHILD
 };
 }

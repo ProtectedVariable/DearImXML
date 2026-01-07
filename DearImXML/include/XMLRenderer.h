@@ -11,18 +11,17 @@ namespace ImXML {
 class XMLRenderer {
    private:
     int sameline = 0;
-    bool popup = false;
     std::unordered_map<std::string, XMLDynamicBind> dynamicBinds;
 
     void renderMenu(XMLNode& node, XMLEventHandler& handler);
 
     void renderTree(XMLNode& node, XMLEventHandler& handler);
 
-    void onNodeBegin(XMLNode& node, XMLEventHandler& handler, bool inPopup = false);
+    bool onNodeBegin(XMLNode& node, XMLEventHandler& handler);
 
-    void onNodeEnd(XMLNode& node, XMLEventHandler& handler, bool inPopup = false);
+    void onNodeEnd(XMLNode& node, XMLEventHandler& handler);
 
-    void traverse(XMLNode& root, XMLEventHandler& handler, bool inPopup = false);
+    void traverse(XMLNode& root, XMLEventHandler& handler);
 
     XMLDynamicBind getDynamicBind(const XMLNode& node);
 

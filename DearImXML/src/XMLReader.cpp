@@ -160,7 +160,10 @@ const std::unordered_map<std::string, ImGuiEnum> XMLReader::tagnames = {{"begin"
                                                                         {"row", ImGuiEnum::ROW},
                                                                         {"header", ImGuiEnum::HEADER},
                                                                         {"setupcolumn", ImGuiEnum::SETUPCOLUMN},
-                                                                        {"beginpopupmodal", ImGuiEnum::BEGINPOPUPMODAL}};
+                                                                        {"beginpopupmodal", ImGuiEnum::BEGINPOPUPMODAL},
+                                                                        {"combo", ImGuiEnum::COMBO},
+                                                                        {"checkbox", ImGuiEnum::CHECKBOX},
+                                                                        {"child", ImGuiEnum::CHILD}};
 
 const std::unordered_map<std::string, int> XMLReader::flagnames = {
     //Window flags

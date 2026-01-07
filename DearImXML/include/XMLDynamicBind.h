@@ -5,6 +5,7 @@ namespace ImXML {
 enum XMLDynamicBindType {
     Float,
     Int,
+    Bool,
     Chars,
 };
 
