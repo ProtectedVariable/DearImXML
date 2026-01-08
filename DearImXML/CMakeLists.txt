@@ -8,6 +8,7 @@ set(SRC
 	includes/ImGUI/imgui_widgets.cpp
 	includes/ImGUI/imgui_draw.cpp
 	includes/ImGUI/imgui_tables.cpp
+	includes/ImGUI/imgui_stdlib.cpp
 
 	src/XMLReader.cpp
 	src/XMLTree.cpp
