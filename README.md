@@ -72,8 +72,7 @@ For example this XML file
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
 
-<begin name="Title window" flags="ImGuiWindowFlags_MenuBar|ImGuiWindowFlags_NoCollapse">
-	<columns count="2"/>
+<begin name="Title window" flags="ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse">
 	<menubar>
 		<menu label="File">
 			<menuitem label="New..."/>
@@ -86,36 +85,39 @@ For example this XML file
 			<menuitem label="Bar"/>
 		</menu>
 	</menubar>
-	<column>
-		<sameline>
-			<text label="Text"/>
-			<button id="btn0" label="Hello!"/>
-		</sameline>
-		<text label="new line"/>
-		<sliderfloat label="float" dynamic="float0" min="0" max="1" />
-		<inputtext label="string" dynamic="str0"/>
-	</column>
-	<column>
-		<tree>
-			<treenode label="treeroot">
-				<treenode label="tree0" />
-				<treenode label="tree1">
-					<treenode label="tree2" />
-				</treenode>
-			</treenode>
-		</tree>
-		<group>
-			<colorpicker3 dynamic="color0" />
-		</group>
-		<group>
-			<PopupContextWindow>
-				<text label="context popup"/>
-			</PopupContextWindow>
-			<text label="right click to open popup"/>
-		</group>
-	</column>
+	<table name="table0" columns="2">
+		<row>
+			<column>
+				<text label="Text"/>
+				<button id="btn0" label="Hello!"/>
+				<text label="new line"/>
+				<sliderfloat label="float" dynamic="float0" min="0" max="1" />
+				<inputtext label="string" dynamic="str0"/>
+				<placeholder id="custom0"/>
+			</column>
+			<column>
+				<tree>
+					<treenode label="treeroot">
+						<treenode label="tree0" />
+						<treenode label="tree1">
+							<treenode label="tree2" />
+						</treenode>
+					</treenode>
+				</tree>
+				<group>
+					<colorpicker3 dynamic="color0" />
+				</group>
+				<separator/>
+				<group>
+					<PopupContextWindow>
+						<text label="context popup"/>
+					</PopupContextWindow>
+					<text label="right click to open popup"/>
+				</group>
+			</column>
+		</row>
+	</table>
 </begin>
-
 ```
 
 Turns into this window
@@ -148,20 +150,31 @@ You will need CMake
 
 ### Installation
 
-Clone the repo or include it as submodule, build target `DearImXML` and link the library to you project.
-You can also add the header file directly to your project and include them in the compilation process.
+If you use CMake you can simply do
+```cmake
+message(STATUS "Fetching DearImXML")
+include(FetchContent)
+FetchContent_Declare(
+  DearImXML
+  GIT_REPOSITORY https://github.com/ProtectedVariable/DearImXML.git
+  GIT_TAG master
+)
+FetchContent_MakeAvailable(DearImXML)
+```
+
+And then 
+`target_link_libraries(${PROJECT_NAME} PUBLIC DearImXML)`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- USAGE EXAMPLES
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Check out the `example` folder of the repo for a quick example.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+You can also check out https://github.com/ProtectedVariable/ICE for a complete application using this library.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
- -->
+ 
 
 
 <!-- ROADMAP 
@@ -197,19 +210,17 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-<!-- LICENSE 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the LGPLv2.1 License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
--->
 
 
 <!-- CONTACT -->
 ## Contact
 
-Feel free to tag me in an issue or send me an email at thomas (dot) ibanez33 (@) gmail (dot) com
+Feel free to tag me in an issue :).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
