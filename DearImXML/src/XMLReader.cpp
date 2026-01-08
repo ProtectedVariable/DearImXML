@@ -80,6 +80,10 @@ XMLNode* XMLReader::stringToNode(std::string& str) {
             if (argtoken[0] == "flags") {
                 node->flags = parseFlags(node->args["flags"]);
             }
+            //Special case, child flags must be converted
+            if (argtoken[0] == "childflags") {
+                node->flags = parseFlags(node->args["childflags"]);
+            }
         }
         searchStart = m.suffix().first;
     }
@@ -145,6 +149,7 @@ const std::unordered_map<std::string, ImGuiEnum> XMLReader::tagnames = {{"begin"
                                                                         {"menu", ImGuiEnum::MENU},
                                                                         {"menuitem", ImGuiEnum::MENUITEM},
                                                                         {"sliderfloat", ImGuiEnum::SLIDERFLOAT},
+                                                                        {"inputfloat", ImGuiEnum::INPUTFLOAT},
                                                                         {"inputtext", ImGuiEnum::INPUTTEXT},
                                                                         {"treenode", ImGuiEnum::TREENODE},
                                                                         {"tree", ImGuiEnum::TREE},
@@ -163,7 +168,9 @@ const std::unordered_map<std::string, ImGuiEnum> XMLReader::tagnames = {{"begin"
                                                                         {"beginpopupmodal", ImGuiEnum::BEGINPOPUPMODAL},
                                                                         {"combo", ImGuiEnum::COMBO},
                                                                         {"checkbox", ImGuiEnum::CHECKBOX},
-                                                                        {"child", ImGuiEnum::CHILD}};
+                                                                        {"child", ImGuiEnum::CHILD},
+                                                                        {"separatortext", ImGuiEnum::SEPARATORTEXT},
+                                                                        {"selectable", ImGuiEnum::SELECTABLE}};
 
 const std::unordered_map<std::string, int> XMLReader::flagnames = {
     //Window flags
@@ -386,5 +393,18 @@ const std::unordered_map<std::string, int> XMLReader::flagnames = {
     {"ImGuiTableColumnFlags_NoDirectResize_", ImGuiTableColumnFlags_NoDirectResize_},
     //enum ImGuiTableRowFlags_
     {"ImGuiTableRowFlags_None", ImGuiTableRowFlags_None},
-    {"ImGuiTableRowFlags_Headers", ImGuiTableRowFlags_Headers}};
+    {"ImGuiTableRowFlags_Headers", ImGuiTableRowFlags_Headers},
+
+    //enum ImGuiChildFlags_
+    {"ImGuiChildFlags_None", ImGuiChildFlags_None},
+    {"ImGuiChildFlags_Borders", ImGuiChildFlags_Borders},
+    {"ImGuiChildFlags_AlwaysUseWindowPadding", ImGuiChildFlags_AlwaysUseWindowPadding},
+    {"ImGuiChildFlags_ResizeX", ImGuiChildFlags_ResizeX},
+    {"ImGuiChildFlags_ResizeY", ImGuiChildFlags_ResizeY},
+    {"ImGuiChildFlags_AutoResizeX", ImGuiChildFlags_AutoResizeX},
+    {"ImGuiChildFlags_AutoResizeY", ImGuiChildFlags_AutoResizeY},
+    {"ImGuiChildFlags_AlwaysAutoResize", ImGuiChildFlags_AlwaysAutoResize},
+    {"ImGuiChildFlags_FrameStyle", ImGuiChildFlags_FrameStyle},
+    {"ImGuiChildFlags_NavFlattened", ImGuiChildFlags_NavFlattened},
+};
 }  // namespace ImXML

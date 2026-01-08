@@ -102,22 +102,22 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
 
     auto bind = getDynamicBind(node);
     if (node.type == ImGuiEnum::COLORPICKER3) {
-        if (ImGui::ColorPicker3(node.args["label"].c_str(), (float*)bind.ptr)) {
+        if (ImGui::ColorPicker3(node.args["label"].c_str(), (float*) bind.ptr)) {
             handler.onEvent(node);
         }
     }
     if (node.type == ImGuiEnum::COLORPICKER4) {
-        if (ImGui::ColorPicker4(node.args["label"].c_str(), (float*)bind.ptr)) {
+        if (ImGui::ColorPicker4(node.args["label"].c_str(), (float*) bind.ptr)) {
             handler.onEvent(node);
         }
     }
     if (node.type == ImGuiEnum::COLOREDIT3) {
-        if (ImGui::ColorEdit3(node.args["label"].c_str(), (float*)bind.ptr)) {
+        if (ImGui::ColorEdit3(node.args["label"].c_str(), (float*) bind.ptr)) {
             handler.onEvent(node);
         }
     }
     if (node.type == ImGuiEnum::COLOREDIT4) {
-        if (ImGui::ColorEdit4(node.args["label"].c_str(), (float*)bind.ptr)) {
+        if (ImGui::ColorEdit4(node.args["label"].c_str(), (float*) bind.ptr)) {
             handler.onEvent(node);
         }
     }
@@ -133,7 +133,7 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
     }
 
     if (node.type == ImGuiEnum::SLIDERFLOAT) {
-        if (ImGui::SliderFloat(node.args["label"].c_str(), (float*)bind.ptr, std::stof(node.args["min"]), std::stof(node.args["max"]))) {
+        if (ImGui::SliderFloat(node.args["label"].c_str(), (float*) bind.ptr, std::stof(node.args["min"]), std::stof(node.args["max"]))) {
             handler.onEvent(node);
         }
     }
@@ -175,9 +175,29 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
     }
 
     if (node.type == ImGuiEnum::CHILD) {
-        //TODO: FIXME
-        if (!ImGui::BeginChild(node.arg<std::string>("label").c_str())) {
+        if (!ImGui::BeginChild(node.arg<std::string>("label").c_str(), {0, 0}, node.childflags, node.flags)) {
             return false;
+        }
+    }
+
+    if (node.type == ImGuiEnum::SEPARATORTEXT) {
+        ImGui::SeparatorText(node.arg<std::string>("label").c_str());
+    }
+
+    if (node.type == ImGuiEnum::INPUTFLOAT) {
+        std::string fmt = "%.3f";
+        if (node.args.contains("format")) {
+            fmt = node.args["format"];
+        }
+        if (ImGui::InputFloat(node.arg<std::string>("label").c_str(), (float*)bind.ptr, node.arg<float>("step"), node.arg<float>("step_fast"),
+            fmt.c_str(), node.flags)) {
+            handler.onEvent(node);
+        }
+    }
+
+    if (node.type == ImGuiEnum::SELECTABLE) {
+        if (ImGui::Selectable(node.arg<std::string>("label").c_str(), node.arg<bool>("selected"), node.flags)) {
+            handler.onEvent(node);
         }
     }
 
@@ -205,7 +225,7 @@ void XMLRenderer::onNodeEnd(XMLNode& node, XMLEventHandler& handler) {
         ImGui::EndMenuBar();
     }
     if (node.type == ImGuiEnum::SAMELINE) {
-        sameline = false; //FIXME: WTF am I doing here
+        sameline = false;  //FIXME: WTF am I doing here
     }
     if (node.type == ImGuiEnum::COLUMN) {
         ImGui::NextColumn();

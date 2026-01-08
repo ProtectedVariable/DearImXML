@@ -12,6 +12,7 @@ enum ImGuiEnum {
     MENU,
     MENUITEM,
     SLIDERFLOAT,
+    INPUTFLOAT,
     INPUTTEXT,
     TREENODE,
     TREE,
@@ -29,6 +30,8 @@ enum ImGuiEnum {
     SEPARATOR,
     COMBO,
     CHECKBOX,
-    CHILD
+    CHILD,
+    SEPARATORTEXT,
+    SELECTABLE
 };
 }

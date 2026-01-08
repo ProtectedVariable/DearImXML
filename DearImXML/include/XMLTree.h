@@ -18,6 +18,8 @@ struct XMLNode {
     ImGuiEnum type;
     std::unordered_map<std::string, std::string> args;
     int flags = 0;
+    int childflags = 0; //only if node is "child"
+    bool hide = false;
     std::vector<XMLNode*> children;
     //Empty for non table nodes
     std::vector<XMLColumnSetup> tables_column_setups;

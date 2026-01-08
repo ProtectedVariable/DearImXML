@@ -43,4 +43,13 @@ double XMLNode::arg(const std::string& key) {
     }
 }
 
+template<>
+bool XMLNode::arg(const std::string& key) {
+    if (args.contains(key)) {
+        return arg<std::string>(key) == "true";
+    } else {
+        return false;
+    }
+}
+
 }  // namespace ImXML
