@@ -79,6 +79,11 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
         }
     }
 
+    if (node.type == ImGuiEnum::MENU) {
+        renderMenu(node, handler);
+        return false;
+    }
+
     if (node.type == ImGuiEnum::BEGIN) {
         if (!ImGui::Begin(node.args["name"].c_str(), nullptr, node.flags)) {
             return false;
@@ -147,6 +152,7 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
 
     if (node.type == ImGuiEnum::TREE) {
         renderTree(node, handler);
+        return false;
     }
 
     if (node.type == ImGuiEnum::SEPARATOR) {
@@ -195,7 +201,9 @@ void XMLRenderer::onNodeEnd(XMLNode& node, XMLEventHandler& handler) {
     if (node.type == ImGuiEnum::BEGIN) {
         ImGui::End();
     }
-
+    if (node.type == ImGuiEnum::MENUBAR) {
+        ImGui::EndMenuBar();
+    }
     if (node.type == ImGuiEnum::SAMELINE) {
         sameline = false; //FIXME: WTF am I doing here
     }
