@@ -10,12 +10,7 @@
 namespace ImXML {
 class XMLRenderer {
    private:
-    int sameline = 0;
     std::unordered_map<std::string, XMLDynamicBind> dynamicBinds;
-
-    void renderMenu(XMLNode& node, XMLEventHandler& handler);
-
-    void renderTree(XMLNode& node, XMLEventHandler& handler);
 
     bool onNodeBegin(XMLNode& node, XMLEventHandler& handler);
 

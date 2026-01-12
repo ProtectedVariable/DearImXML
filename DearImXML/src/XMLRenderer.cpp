@@ -18,7 +18,6 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
 
         case ImGuiEnum::SAMELINE:
             ImGui::SameLine();
-            sameline = 1;
             break;
 
         case ImGuiEnum::SEPARATOR:
