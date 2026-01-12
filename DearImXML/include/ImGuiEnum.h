@@ -15,7 +15,6 @@ enum ImGuiEnum {
     INPUTFLOAT,
     INPUTTEXT,
     TREENODE,
-    TREE,
     TABLE,
     SETUPCOLUMN,
     HEADER,
@@ -32,6 +31,7 @@ enum ImGuiEnum {
     CHECKBOX,
     CHILD,
     SEPARATORTEXT,
-    SELECTABLE
+    SELECTABLE,
+    MAINMENUBAR
 };
 }

@@ -64,7 +64,7 @@ XMLNode* XMLReader::stringToNode(std::string& str) {
     XMLNode* node = new XMLNode;
     std::transform(name.begin(), name.end(), name.begin(), ::tolower);
     if (tagnames.find(name) == tagnames.end()) {
-        throw std::runtime_error("Unknown tag " + name);
+        throw std::invalid_argument("Unknown tag " + name);
     }
     node->type = tagnames.at(name);
 
@@ -152,7 +152,6 @@ const std::unordered_map<std::string, ImGuiEnum> XMLReader::tagnames = {{"begin"
                                                                         {"inputfloat", ImGuiEnum::INPUTFLOAT},
                                                                         {"inputtext", ImGuiEnum::INPUTTEXT},
                                                                         {"treenode", ImGuiEnum::TREENODE},
-                                                                        {"tree", ImGuiEnum::TREE},
                                                                         {"column", ImGuiEnum::COLUMN},
                                                                         {"group", ImGuiEnum::GROUP},
                                                                         {"colorpicker3", ImGuiEnum::COLORPICKER3},
@@ -170,7 +169,9 @@ const std::unordered_map<std::string, ImGuiEnum> XMLReader::tagnames = {{"begin"
                                                                         {"checkbox", ImGuiEnum::CHECKBOX},
                                                                         {"child", ImGuiEnum::CHILD},
                                                                         {"separatortext", ImGuiEnum::SEPARATORTEXT},
-                                                                        {"selectable", ImGuiEnum::SELECTABLE}};
+                                                                        {"selectable", ImGuiEnum::SELECTABLE},
+                                                                        {"mainmenubar", ImGuiEnum::MAINMENUBAR},
+};
 
 const std::unordered_map<std::string, int> XMLReader::flagnames = {
     //Window flags
@@ -194,6 +195,7 @@ const std::unordered_map<std::string, int> XMLReader::flagnames = {
     {"ImGuiWindowFlags_NoNavInputs", ImGuiWindowFlags_NoNavInputs},
     {"ImGuiWindowFlags_NoNavFocus", ImGuiWindowFlags_NoNavFocus},
     {"ImGuiWindowFlags_UnsavedDocument", ImGuiWindowFlags_UnsavedDocument},
+    {"ImGuiWindowFlags_NoDocking", ImGuiWindowFlags_NoDocking},
     {"ImGuiWindowFlags_NoNav", ImGuiWindowFlags_NoNav},
     {"ImGuiWindowFlags_NoDecoration", ImGuiWindowFlags_NoDecoration},
     {"ImGuiWindowFlags_NoInputs", ImGuiWindowFlags_NoInputs},
