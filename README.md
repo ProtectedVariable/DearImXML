@@ -96,14 +96,12 @@ For example this XML file
 				<placeholder id="custom0"/>
 			</column>
 			<column>
-				<tree>
-					<treenode label="treeroot">
-						<treenode label="tree0" />
-						<treenode label="tree1">
-							<treenode label="tree2" />
-						</treenode>
+				<treenode label="treeroot">
+					<treenode label="tree0" />
+					<treenode label="tree1">
+						<treenode label="tree2" />
 					</treenode>
-				</tree>
+				</treenode>
 				<group>
 					<colorpicker3 dynamic="color0" />
 				</group>
