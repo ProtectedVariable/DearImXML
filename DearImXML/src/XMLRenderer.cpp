@@ -90,6 +90,13 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
             shouldRenderChildren = ImGui::TreeNodeEx(node.arg<std::string>("label").c_str(), node.flags);
             break;
 
+        case ImGuiEnum::TABBAR:
+            shouldRenderChildren = ImGui::BeginTabBar(node.arg<std::string>("id").c_str(), node.flags);
+            break;
+        case ImGuiEnum::TABITEM:
+            shouldRenderChildren = ImGui::BeginTabItem(node.arg<std::string>("label").c_str(), nullptr, node.flags);
+            break;
+
         // Interactive Widgets
         case ImGuiEnum::MENUITEM:
             eventTriggered = ImGui::MenuItem(node.arg<std::string>("label").c_str(), node.arg<std::string>("shortcut").c_str());
@@ -138,6 +145,11 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
             }
             break;
         }
+
+        case ImGuiEnum::INPUTTEXTMULTILINE:
+            auto bind = getDynamicBind(node);
+            eventTriggered = ImGui::InputTextMultiline(node.arg<std::string>("label").c_str(), (char*) bind.ptr, bind.size, ImVec2(0, 0), node.flags);
+            break;
 
         case ImGuiEnum::INPUTFLOAT: {
             auto bind = getDynamicBind(node);
@@ -207,6 +219,13 @@ void XMLRenderer::onNodeEnd(XMLNode& node, XMLEventHandler& handler) {
 
         case ImGuiEnum::TABLE:
             ImGui::EndTable();
+            break;
+
+        case ImGuiEnum::TABBAR:
+            ImGui::EndTabBar();
+            break;
+        case ImGuiEnum::TABITEM:
+            ImGui::EndTabItem();
             break;
 
         default:

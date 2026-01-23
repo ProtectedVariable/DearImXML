@@ -151,6 +151,7 @@ const std::unordered_map<std::string, ImGuiEnum> XMLReader::tagnames = {{"begin"
                                                                         {"sliderfloat", ImGuiEnum::SLIDERFLOAT},
                                                                         {"inputfloat", ImGuiEnum::INPUTFLOAT},
                                                                         {"inputtext", ImGuiEnum::INPUTTEXT},
+                                                                        {"inputtextmultiline", ImGuiEnum::INPUTTEXTMULTILINE},
                                                                         {"treenode", ImGuiEnum::TREENODE},
                                                                         {"column", ImGuiEnum::COLUMN},
                                                                         {"group", ImGuiEnum::GROUP},
@@ -171,6 +172,8 @@ const std::unordered_map<std::string, ImGuiEnum> XMLReader::tagnames = {{"begin"
                                                                         {"separatortext", ImGuiEnum::SEPARATORTEXT},
                                                                         {"selectable", ImGuiEnum::SELECTABLE},
                                                                         {"mainmenubar", ImGuiEnum::MAINMENUBAR},
+                                                                        {"tabbar", ImGuiEnum::TABBAR},
+                                                                        {"tabitem", ImGuiEnum::TABITEM},
 };
 
 const std::unordered_map<std::string, int> XMLReader::flagnames = {

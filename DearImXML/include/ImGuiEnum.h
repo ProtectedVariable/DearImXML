@@ -14,6 +14,7 @@ enum ImGuiEnum {
     SLIDERFLOAT,
     INPUTFLOAT,
     INPUTTEXT,
+    INPUTTEXTMULTILINE,
     TREENODE,
     TABLE,
     SETUPCOLUMN,
@@ -32,6 +33,8 @@ enum ImGuiEnum {
     CHILD,
     SEPARATORTEXT,
     SELECTABLE,
-    MAINMENUBAR
+    MAINMENUBAR,
+    TABBAR,
+    TABITEM
 };
 }
