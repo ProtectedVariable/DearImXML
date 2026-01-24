@@ -54,7 +54,7 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
             break;
 
         case ImGuiEnum::TABLE:
-            shouldRenderChildren = ImGui::BeginTable(node.args["name"].c_str(), std::stoi(node.args["columns"]), node.flags);
+            shouldRenderChildren = ImGui::BeginTable(node.args["name"].c_str(), std::stoi(node.args["columns"]), node.flags, node.size);
             break;
 
         case ImGuiEnum::MENUBAR:
@@ -119,7 +119,7 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
             break;
 
         case ImGuiEnum::BUTTON:
-            eventTriggered = ImGui::Button(node.arg<std::string>("label").c_str());
+            eventTriggered = ImGui::Button(node.arg<std::string>("label").c_str(), node.size);
             break;
 
         case ImGuiEnum::SLIDERFLOAT:
@@ -132,7 +132,7 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
             break;
 
         case ImGuiEnum::SELECTABLE:
-            eventTriggered = ImGui::Selectable(node.arg<std::string>("label").c_str(), node.arg<bool>("selected"), node.flags);
+            eventTriggered = ImGui::Selectable(node.arg<std::string>("label").c_str(), node.arg<bool>("selected"), node.flags, node.size);
             break;
 
         case ImGuiEnum::INPUTTEXT: {
@@ -148,7 +148,7 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
 
         case ImGuiEnum::INPUTTEXTMULTILINE:
             auto bind = getDynamicBind(node);
-            eventTriggered = ImGui::InputTextMultiline(node.arg<std::string>("label").c_str(), (char*) bind.ptr, bind.size, ImVec2(0, 0), node.flags);
+            eventTriggered = ImGui::InputTextMultiline(node.arg<std::string>("label").c_str(), (char*) bind.ptr, bind.size, node.size, node.flags);
             break;
 
         case ImGuiEnum::INPUTFLOAT: {

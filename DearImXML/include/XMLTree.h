@@ -19,6 +19,7 @@ struct XMLNode {
     std::unordered_map<std::string, std::string> args;
     int flags = 0;
     int childflags = 0; //only if node is "child"
+    ImVec2 size = ImVec2(0, 0);
     bool hide = false;
     std::vector<XMLNode*> children;
     //Empty for non table nodes
