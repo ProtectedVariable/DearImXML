@@ -14,7 +14,7 @@
 <br />
 <div align="center">
   <a href="#">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="doc/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Dear ImXML</h3>
@@ -72,8 +72,7 @@ For example this XML file
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
 
-<begin name="Title window" flags="ImGuiWindowFlags_MenuBar|ImGuiWindowFlags_NoCollapse">
-	<columns count="2"/>
+<begin name="Title window" flags="ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse">
 	<menubar>
 		<menu label="File">
 			<menuitem label="New..."/>
@@ -86,40 +85,68 @@ For example this XML file
 			<menuitem label="Bar"/>
 		</menu>
 	</menubar>
-	<column>
-		<sameline>
-			<text label="Text"/>
-			<button id="btn0" label="Hello!"/>
-		</sameline>
-		<text label="new line"/>
-		<sliderfloat label="float" dynamic="float0" min="0" max="1" />
-		<inputtext label="string" dynamic="str0"/>
-	</column>
-	<column>
-		<tree>
-			<treenode label="treeroot">
-				<treenode label="tree0" />
-				<treenode label="tree1">
-					<treenode label="tree2" />
+	<table name="table0" columns="3">
+		<setupcolumn label="Column 0" width="0.33" flags="ImGuiTableColumnFlags_WidthStretch"/>
+		<setupcolumn label="Column 1" width="0.33" flags="ImGuiTableColumnFlags_WidthStretch"/>
+		<setupcolumn label="Column 2" width="0.33" flags="ImGuiTableColumnFlags_WidthStretch"/>
+		<header/>
+		<row>
+			<column>
+				<text label="Text"/>
+				<button id="btn0" label="Hello!"/>
+				<separatortext label="SeparatorText"/>
+				<sliderfloat label="float" dynamic="float0" min="0" max="1" />
+				<inputtext label="string" dynamic="str0"/>
+			</column>
+			<column>
+				<treenode label="treeroot">
+					<treenode label="tree0" />
+					<treenode label="tree1">
+						<treenode label="tree2" />
+					</treenode>
 				</treenode>
-			</treenode>
-		</tree>
-		<group>
-			<colorpicker3 dynamic="color0" />
-		</group>
-		<group>
-			<PopupContextWindow>
-				<text label="context popup"/>
-			</PopupContextWindow>
-			<text label="right click to open popup"/>
-		</group>
-	</column>
+				<separator/>
+				<group>
+					<colorpicker3 dynamic="color0" />
+				</group>
+				<separator/>
+				<group>
+					<PopupContextWindow>
+						<text label="context popup"/>
+					</PopupContextWindow>
+					<text label="right click to open popup"/>
+				</group>
+			</column>
+			<column>
+				<combo label="Combo" preview_value="Preview" >
+					<selectable label="Option 1" selected="true" />
+					<selectable label="Option 2" selected="false" />
+					<selectable label="Option 3" selected="false" />
+					<selectable label="Option 4" selected="false" />
+				</combo>
+				<inputfloat label="Input float" dynamic="float1" step="0.1" step_fast="0.25" format="%.4f"/>
+				<checkbox label="Checkbox" dynamic="bool0"/>
+			</column>
+		</row>
+	</table>
+	<child label="Child window">
+		<tabbar id="tabbar0">
+			<tabitem label="Tab 1">
+				<InputTextMultiline label="Sample text" dynamic="str1" />
+			</tabitem>
+			<tabitem label="Tab 2">
+				<InputTextMultiline label="Another Sample text" dynamic="str2" />
+			</tabitem>
+			<tabitem label="Tab 3">
+				<InputTextMultiline label="Yet Another Sample text" dynamic="str3" />
+			</tabitem>
+		</tabbar>
+	</child>
 </begin>
-
 ```
 
-Turns into this window
-![Demo gif](images/demo.gif)
+Turns into this window (without the gif compression artifacts)
+![Demo gif](doc/images/demo.gif)
 
 Note that the project is at an early phase, not all ImGui elements are supported but it's rapidly being expanded.
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)-->
@@ -144,24 +171,48 @@ Note that the project is at an early phase, not all ImGui elements are supported
 
 ### Prerequisites
 
-You will need CMake
+You will probably need CMake
 
 ### Installation
 
-Clone the repo or include it as submodule, build target `DearImXML` and link the library to you project.
-You can also add the header file directly to your project and include them in the compilation process.
+If you use CMake you can simply do
+```cmake
+message(STATUS "Fetching DearImXML")
+include(FetchContent)
+FetchContent_Declare(
+  DearImXML
+  GIT_REPOSITORY https://github.com/ProtectedVariable/DearImXML.git
+  GIT_TAG master
+)
+FetchContent_MakeAvailable(DearImXML)
+```
+
+And then 
+`target_link_libraries(${PROJECT_NAME} PUBLIC DearImXML)`
+
+This library comes with DearImGui v1.95.2-docking included for convenience, but you still need to add your implementation files e.g:
+```CMakefile
+add_executable(DearImXMLExample
+	main.cpp
+    includes/GL/gl3w.c
+    Backend/ImGUI/imgui_impl_opengl3.cpp
+	Backend/ImGUI/imgui_impl_glfw.cpp)
+```
+
+If you wish to use a different version of ImGui, you can set the option `IMXML_INTERNAL_IMGUI` to `OFF` and link your own ImGui library.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- USAGE EXAMPLES
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+The documentation is available in the `doc` folder of the repo.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Check out the `example` folder of the repo for a quick example.
+
+You can also check out https://github.com/ProtectedVariable/ICE for a complete application using this library.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
- -->
+ 
 
 
 <!-- ROADMAP 
@@ -197,19 +248,17 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-<!-- LICENSE 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the LGPLv2.1 License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
--->
 
 
 <!-- CONTACT -->
 ## Contact
 
-Feel free to tag me in an issue or send me an email at thomas (dot) ibanez33 (@) gmail (dot) com
+Feel free to tag me in an issue :).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
