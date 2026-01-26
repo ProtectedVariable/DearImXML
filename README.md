@@ -14,7 +14,7 @@
 <br />
 <div align="center">
   <a href="#">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="doc/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Dear ImXML</h3>
@@ -85,15 +85,18 @@ For example this XML file
 			<menuitem label="Bar"/>
 		</menu>
 	</menubar>
-	<table name="table0" columns="2">
+	<table name="table0" columns="3">
+		<setupcolumn label="Column 0" width="0.33" flags="ImGuiTableColumnFlags_WidthStretch"/>
+		<setupcolumn label="Column 1" width="0.33" flags="ImGuiTableColumnFlags_WidthStretch"/>
+		<setupcolumn label="Column 2" width="0.33" flags="ImGuiTableColumnFlags_WidthStretch"/>
+		<header/>
 		<row>
 			<column>
 				<text label="Text"/>
 				<button id="btn0" label="Hello!"/>
-				<text label="new line"/>
+				<separatortext label="SeparatorText"/>
 				<sliderfloat label="float" dynamic="float0" min="0" max="1" />
 				<inputtext label="string" dynamic="str0"/>
-				<placeholder id="custom0"/>
 			</column>
 			<column>
 				<treenode label="treeroot">
@@ -102,6 +105,7 @@ For example this XML file
 						<treenode label="tree2" />
 					</treenode>
 				</treenode>
+				<separator/>
 				<group>
 					<colorpicker3 dynamic="color0" />
 				</group>
@@ -113,13 +117,36 @@ For example this XML file
 					<text label="right click to open popup"/>
 				</group>
 			</column>
+			<column>
+				<combo label="Combo" preview_value="Preview" >
+					<selectable label="Option 1" selected="true" />
+					<selectable label="Option 2" selected="false" />
+					<selectable label="Option 3" selected="false" />
+					<selectable label="Option 4" selected="false" />
+				</combo>
+				<inputfloat label="Input float" dynamic="float1" step="0.1" step_fast="0.25" format="%.4f"/>
+				<checkbox label="Checkbox" dynamic="bool0"/>
+			</column>
 		</row>
 	</table>
+	<child label="Child window">
+		<tabbar id="tabbar0">
+			<tabitem label="Tab 1">
+				<InputTextMultiline label="Sample text" dynamic="str1" />
+			</tabitem>
+			<tabitem label="Tab 2">
+				<InputTextMultiline label="Another Sample text" dynamic="str2" />
+			</tabitem>
+			<tabitem label="Tab 3">
+				<InputTextMultiline label="Yet Another Sample text" dynamic="str3" />
+			</tabitem>
+		</tabbar>
+	</child>
 </begin>
 ```
 
-Turns into this window
-![Demo gif](images/demo.gif)
+Turns into this window (without the gif compression artifacts)
+![Demo gif](doc/images/demo.gif)
 
 Note that the project is at an early phase, not all ImGui elements are supported but it's rapidly being expanded.
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)-->
@@ -144,7 +171,7 @@ Note that the project is at an early phase, not all ImGui elements are supported
 
 ### Prerequisites
 
-You will need CMake
+You will probably need CMake
 
 ### Installation
 
@@ -163,9 +190,22 @@ FetchContent_MakeAvailable(DearImXML)
 And then 
 `target_link_libraries(${PROJECT_NAME} PUBLIC DearImXML)`
 
+This library comes with DearImGui v1.95.2-docking included for convenience, but you still need to add your implementation files e.g:
+```CMakefile
+add_executable(DearImXMLExample
+	main.cpp
+    includes/GL/gl3w.c
+    Backend/ImGUI/imgui_impl_opengl3.cpp
+	Backend/ImGUI/imgui_impl_glfw.cpp)
+```
+
+If you wish to use a different version of ImGui, you can set the option `IMXML_INTERNAL_IMGUI` to `OFF` and link your own ImGui library.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
+
+The documentation is available in the `doc` folder of the repo.
 
 Check out the `example` folder of the repo for a quick example.
 

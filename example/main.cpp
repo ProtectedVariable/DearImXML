@@ -1,43 +1,36 @@
 
-#include <GL/gl3w.h>            // Initialize with gl3wInit()
+#include <GL/gl3w.h>  // Initialize with gl3wInit()
 // Include glfw3.h after our OpenGL definitions
 #include <GLFW/glfw3.h>
-#include <imgui.h>
-#include <imgui_internal.h>
 #include <ImGUI/imgui_impl_glfw.h>
 #include <ImGUI/imgui_impl_opengl3.h>
-
-#include <string>
-#include <iostream>
-#include <fstream>
-
-#include <XMLReader.h>
-#include <XMLTree.h>
-#include <XMLRenderer.h>
-#include <XMLEventHandler.h>
 #include <XMLDynamicBind.h>
+#include <XMLEventHandler.h>
+#include <XMLReader.h>
+#include <XMLRenderer.h>
+#include <XMLTree.h>
+#include <imgui.h>
+#include <imgui_internal.h>
+
+#include <fstream>
+#include <iostream>
+#include <string>
 
 class Handler : public ImXML::XMLEventHandler {
-    virtual void onNodeBegin(ImXML::XMLNode& node) override {
+    virtual void onNodeBegin(ImXML::XMLNode& node) override {}
 
-    }
-    
-    virtual void onNodeEnd(ImXML::XMLNode& node) override {
-
-    }
+    virtual void onNodeEnd(ImXML::XMLNode& node) override {}
 
     virtual void onEvent(ImXML::XMLNode& node) override {
-        if(node.args["id"] == "btn0") {
+        if (node.args["id"] == "btn0") {
             node.args["label"] = "Clicked";
         }
     }
-
 };
 
-int main(int argc, char const *argv[])
-{
-	if (!glfwInit())
-    	return 1;
+int main(int argc, char const* argv[]) {
+    if (!glfwInit())
+        return 1;
 
     // Decide GL+GLSL versions
 #ifdef __APPLE__
@@ -60,35 +53,45 @@ int main(int argc, char const *argv[])
     if (window == NULL)
         return 1;
     glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // Enable vsync
+    glfwSwapInterval(1);  // Enable vsync
 
     bool err = gl3wInit();
 
-	IMGUI_CHECKVERSION();
+    IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-    //io.ConfigViewportsNoAutoMerge = true;
-    //io.ConfigViewportsNoTaskBarIcon = true;
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGuiIO& io = ImGui::GetIO();
+    (void) io;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+                                                           //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+                                                           //io.ConfigViewportsNoAutoMerge = true;
+                                                           //io.ConfigViewportsNoTaskBarIcon = true;
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-	ImXML::XMLReader reader = ImXML::XMLReader();
-	ImXML::XMLTree tree = reader.read("Assets/test.xml");
+    ImXML::XMLReader reader = ImXML::XMLReader();
+    ImXML::XMLTree tree = reader.read("Assets/test.xml");
     ImXML::XMLRenderer renderer;
-    float float0;
-    char buf[512] = {0};
+    float float0 = 0;
+    float float1 = 0;
+    bool check0 = false;
+    char buf0[512] = {0};
+    char buf1[512] = {0};
+    char buf2[512] = {0};
+    char buf3[512] = {0};
     float color0[3] = {0};
     float color1[4] = {0};
     renderer.addDynamicBind(std::string("float0"), {.ptr = &float0});
-    renderer.addDynamicBind(std::string("str0"), {.ptr = buf, .size=512});
+    renderer.addDynamicBind(std::string("float1"), {.ptr = &float1});
+    renderer.addDynamicBind(std::string("str0"), {.ptr = buf0, .size = 512});
+    renderer.addDynamicBind(std::string("str1"), {.ptr = buf1, .size = 512});
+    renderer.addDynamicBind(std::string("str2"), {.ptr = buf2, .size = 512});
+    renderer.addDynamicBind(std::string("str3"), {.ptr = buf3, .size = 512});
     renderer.addDynamicBind(std::string("color0"), {.ptr = color0});
     renderer.addDynamicBind(std::string("color1"), {.ptr = color1});
+    renderer.addDynamicBind(std::string("bool0"), {.ptr = &check0});
     Handler handler;
 
-	while (!glfwWindowShouldClose(window))
-    {
+    while (!glfwWindowShouldClose(window)) {
         IM_ASSERT(ImGui::GetCurrentContext() != NULL && "Missing dear imgui context. Refer to examples app!");
         glfwPollEvents();
 
@@ -111,6 +114,6 @@ int main(int argc, char const *argv[])
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         glfwSwapBuffers(window);
     }
-    
-	return 0;
+
+    return 0;
 }
