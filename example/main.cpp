@@ -104,7 +104,7 @@ int main(int argc, char const* argv[]) {
 
         // render your GUI
         renderer.render(tree, handler);
-
+        
         // Render dear imgui into screen
         ImGui::Render();
 

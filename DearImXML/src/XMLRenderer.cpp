@@ -235,10 +235,13 @@ void XMLRenderer::onNodeEnd(XMLNode& node, XMLEventHandler& handler) {
 }
 
 void XMLRenderer::traverse(XMLNode& root, XMLEventHandler& handler) {
-    if (onNodeBegin(root, handler)) {
+    auto recurse = onNodeBegin(root, handler);
+    if (recurse) {
         for (auto child : root.children) {
             traverse(*child, handler);
         }
+    }
+    if (recurse || root.type == ImGuiEnum::BEGIN || root.type == ImGuiEnum::CHILD) {
         onNodeEnd(root, handler);
     }
 }
