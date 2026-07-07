@@ -146,10 +146,11 @@ bool XMLRenderer::onNodeBegin(XMLNode& node, XMLEventHandler& handler) {
             break;
         }
 
-        case ImGuiEnum::INPUTTEXTMULTILINE:
+        case ImGuiEnum::INPUTTEXTMULTILINE: {
             auto bind = getDynamicBind(node);
             eventTriggered = ImGui::InputTextMultiline(node.arg<std::string>("label").c_str(), (char*) bind.ptr, bind.size, node.size, node.flags);
             break;
+        }
 
         case ImGuiEnum::INPUTFLOAT: {
             auto bind = getDynamicBind(node);
